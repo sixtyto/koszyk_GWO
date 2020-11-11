@@ -12,11 +12,11 @@ import {
   usePersistedReducer,
 } from './contexts/usePersist';
 
-import Store from './contexts/Store';
+import store from './contexts/store';
 import reducer from './contexts/reducer';
 
 const App = () => {
-  const globalStore = usePersistedContext(useContext(Store), 'state');
+  const globalStore = usePersistedContext(useContext(store), 'state');
   const [state, dispatch] = usePersistedReducer(
     useReducer(reducer, globalStore),
     'state'
@@ -29,12 +29,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Store.Provider value={{ state, dispatch }}>
+        <store.Provider value={{ state, dispatch }}>
           <Header />
           <Route exact path="/" component={Home} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/order" component={Order} />
-        </Store.Provider>
+        </store.Provider>
       </Switch>
     </BrowserRouter>
   );

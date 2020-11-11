@@ -7,49 +7,41 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import Store from '../contexts/Store';
+import store from '../contexts/store';
 
 const Order = () => {
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(store);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [city, setCity] = useState('');
   const [zipCode, setZipCode] = useState('');
+
   const setAddress = () => {
     dispatch({
       type: 'SET_ADDRESS',
       payload: [firstName, lastName, zipCode, city],
     });
   };
-  const finishOrder = () => {
-    console.log(
-      JSON.stringify({
-        order: state.order,
-        first_name: state.first_name,
-        last_name: state.last_name,
-        city: state.city,
-        zip_code: state.zip_code,
-      })
-    );
-    axios({
+
+  const finishOrder = async () => {
+    const { order, first_name, last_name, city, zip_code } = state;
+    await axios({
       method: 'post',
       url: 'http://localhost:3001/api/order',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify({
-        order: state.order,
-        first_name: state.first_name,
-        last_name: state.last_name,
-        city: state.city,
-        zip_code: state.zip_code,
+        order,
+        first_name,
+        last_name,
+        city,
+        zip_code,
       }),
-    })
-      .then(res => console.log(res))
-      .then(
-        dispatch({
-          type: 'REMOVE_CART',
-        })
-      );
+    });
+    dispatch({
+      type: 'REMOVE_CART',
+    });
   };
+
   return (
     <Container className="my-3">
       <Row>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Store = React.createContext({
+const store = React.createContext({
   order: [],
   first_name: '',
   last_name: '',
@@ -9,4 +9,4 @@ const Store = React.createContext({
   books: [],
 });
 
-export default Store;
+export default store;

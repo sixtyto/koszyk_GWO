@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -6,20 +6,21 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-import Store from '../contexts/Store';
+import store from '../contexts/store';
 
 const Home = () => {
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(store);
 
   const addToCart = id => {
     dispatch({ type: 'ADD_TO_CART', payload: id });
   };
-
+  const getPrice = price => (price / 100).toFixed(2);
+  const { books } = state;
   return (
     <Container>
       <Row>
-        {state.books &&
-          state.books.map(book => (
+        {books &&
+          books.map(book => (
             <Col
               xs={6}
               sm={4}
@@ -34,7 +35,7 @@ const Home = () => {
               <h3>{book.title}</h3>
               <p>Stron: {book.pages}</p>
               <p>
-                Cena: {(book.price / 100).toFixed(2)} {book.currency}
+                Cena: {getPrice(book.price)} {book.currency}
               </p>
               <Button onClick={() => addToCart(book.id)}>
                 Dodaj do koszyka

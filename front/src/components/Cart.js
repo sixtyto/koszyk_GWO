@@ -6,22 +6,27 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-import Store from '../contexts/Store';
+import store from '../contexts/store';
 
 const Cart = () => {
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(store);
+
   const removeFromCart = id => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: id });
   };
-  const cartSummary = (
+
+  const getPrice = price => (price / 100).toFixed(2);
+
+  const cartSummary = getPrice(
     state.order
       .map(
         item =>
           item.quantity *
           state.books.filter(order => order.id === item.id)[0].price
       )
-      .reduce((a, b) => a + b, 0) / 100
-  ).toFixed(2);
+      .reduce((a, b) => a + b, 0)
+  );
+
   return (
     <Container className="py-3">
       <Row>
@@ -57,10 +62,10 @@ const Cart = () => {
                       </Button>
                     </td>
                     <td>
-                      {(
+                      {getPrice(
                         state.books.filter(item => item.id === order.id)[0]
-                          .price / 100
-                      ).toFixed(2)}
+                          .price
+                      )}
                     </td>
                   </tr>
                 ))}
