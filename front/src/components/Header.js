@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -13,16 +14,22 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Strona domowa</Nav.Link>
-          <Nav.Link href="/cart">
+          <Link to="/" className="nav-link">
+            Strona domowa
+          </Link>
+          <Link to="/cart" className="nav-link">
             Koszyk
             {state.order[0]
               ? ` (${state.order
                   .map(item => item.quantity)
                   .reduce((a, b) => a + b)})`
               : null}
-          </Nav.Link>
-          {state.order[0] ? <Nav.Link href="/order">Zamów</Nav.Link> : null}
+          </Link>
+          {state.order[0] ? (
+            <Link to="/order" className="nav-link">
+              Zamów
+            </Link>
+          ) : null}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

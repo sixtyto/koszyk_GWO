@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -82,6 +83,15 @@ const Cart = () => {
           )}
         </Col>
       </Row>
+      {state.order[0] ? (
+        <Row>
+          <Col xs={{ offset: 10 }}>
+            <Link to="/order" className="btn btn-primary">
+              Dalej
+            </Link>
+          </Col>
+        </Row>
+      ) : null}
     </Container>
   );
 };
