@@ -11,19 +11,20 @@ import store from '../contexts/store';
 
 const Order = () => {
   const { state, dispatch } = useContext(store);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [city, setCity] = useState('');
-  const [zipCode, setZipCode] = useState('');
+  const [firstNameValue, setFirstNameValue] = useState('');
+  const [lastNameValue, setLastNameValue] = useState('');
+  const [cityValue, setCityValue] = useState('');
+  const [zipCodeValue, setZipCodeValue] = useState('');
 
   const setAddress = () => {
     dispatch({
       type: 'SET_ADDRESS',
-      payload: [firstName, lastName, zipCode, city],
+      payload: [firstNameValue, lastNameValue, zipCodeValue, cityValue],
     });
   };
 
   const finishOrder = async () => {
+    // eslint-disable-next-line camelcase
     const { order, first_name, last_name, city, zip_code } = state;
     await axios({
       method: 'post',
@@ -54,8 +55,8 @@ const Order = () => {
                   required
                   type="text"
                   placeholder="Wpisz imię"
-                  value={firstName}
-                  onChange={e => setFirstName(e.target.value)}
+                  value={firstNameValue}
+                  onChange={e => setFirstNameValue(e.target.value)}
                 />
               </Form.Group>
 
@@ -65,8 +66,8 @@ const Order = () => {
                   required
                   type="text"
                   placeholder="Wpisz nazwisko"
-                  value={lastName}
-                  onChange={e => setLastName(e.target.value)}
+                  value={lastNameValue}
+                  onChange={e => setLastNameValue(e.target.value)}
                 />
               </Form.Group>
 
@@ -76,8 +77,8 @@ const Order = () => {
                   pattern="[0-9][0-9]-[0-9][0-9][0-9]"
                   type="text"
                   placeholder="Wpisz kod pocztowy"
-                  value={zipCode}
-                  onChange={e => setZipCode(e.target.value)}
+                  value={zipCodeValue}
+                  onChange={e => setZipCodeValue(e.target.value)}
                 />
               </Form.Group>
 
@@ -87,8 +88,8 @@ const Order = () => {
                   required
                   type="text"
                   placeholder="Wpisz miasto"
-                  value={city}
-                  onChange={e => setCity(e.target.value)}
+                  value={cityValue}
+                  onChange={e => setCityValue(e.target.value)}
                 />
               </Form.Group>
 
