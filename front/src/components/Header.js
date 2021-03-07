@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
-import store from '../contexts/store';
+import store from '../contexts/Store';
 
 const Header = () => {
   const { state } = useContext(store);

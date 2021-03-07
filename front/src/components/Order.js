@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import store from '../contexts/store';
+import store from '../contexts/Store';
 
 const Order = () => {
   const { state, dispatch } = useContext(store);
@@ -16,29 +16,29 @@ const Order = () => {
   const [cityValue, setCityValue] = useState('');
   const [zipCodeValue, setZipCodeValue] = useState('');
 
-  const setAddress = () => {
-    dispatch({
-      type: 'SET_ADDRESS',
-      payload: [firstNameValue, lastNameValue, zipCodeValue, cityValue],
-    });
-  };
-
-  const finishOrder = async () => {
+  const finishOrder = () => {
+    const regex = new RegExp('^[0-9]{2}-[0-9]{3}$');
     // eslint-disable-next-line camelcase
-    const { order, first_name, last_name, city, zip_code } = state;
-    await axios({
+    const { order } = state;
+    if (!firstNameValue) return alert('Podaj imię');
+    if (!lastNameValue) return alert('Podaj nazwisko');
+    if (!cityValue) return alert('Podaj miasto');
+    if (!zipCodeValue || !regex.test(zipCodeValue))
+      return alert('Podaj prawidłowy kod pocztowy');
+
+    axios({
       method: 'post',
       url: 'http://localhost:3001/api/order',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify({
         order,
-        first_name,
-        last_name,
-        city,
-        zip_code,
+        first_name: firstNameValue,
+        last_name: lastNameValue,
+        city: cityValue,
+        zip_code: zipCodeValue,
       }),
     });
-    dispatch({
+    return dispatch({
       type: 'REMOVE_CART',
     });
   };
@@ -98,7 +98,6 @@ const Order = () => {
                 type="submit"
                 onClick={e => {
                   e.preventDefault();
-                  setAddress();
                   finishOrder();
                 }}
               >

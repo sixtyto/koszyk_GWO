@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
-import store from '../contexts/store';
+import store from '../contexts/Store';
 
 const Home = () => {
   const { state, dispatch } = useContext(store);

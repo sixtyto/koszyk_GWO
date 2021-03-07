@@ -28,14 +28,6 @@ const reducer = (state, action) => {
           },
         ],
       };
-    case 'SET_ADDRESS':
-      return {
-        ...state,
-        first_name: action.payload[0],
-        last_name: action.payload[1],
-        city: action.payload[3],
-        zip_code: action.payload[2],
-      };
     default:
       return state;
     case 'UPDATE_BOOKS':

@@ -12,7 +12,7 @@ import {
   usePersistedReducer,
 } from './contexts/usePersist';
 
-import store from './contexts/store';
+import store from './contexts/Store';
 import reducer from './contexts/reducer';
 
 const App = () => {

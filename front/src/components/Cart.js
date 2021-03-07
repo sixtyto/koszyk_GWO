@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
-import store from '../contexts/store';
+import store from '../contexts/Store';
 
 const Cart = () => {
   const { state, dispatch } = useContext(store);
