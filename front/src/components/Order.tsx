@@ -95,6 +95,7 @@ const Order: React.FC = () => {
           <Row>
             <Col xs={{ offset: 10 }}>
               <Button
+                className="my-2"
                 variant="primary"
                 type="submit"
                 onClick={(e) => {
