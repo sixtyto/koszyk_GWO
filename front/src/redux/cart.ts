@@ -25,17 +25,14 @@ export const cartSlice = createSlice({
       state.books = action.payload;
     },
     addToCartDispatcher: (state, action) => {
-      if (
-        [...state.cart.order].filter((item) => item.id === action.payload)[0]
-      ) {
+      if ([...state.cart.order].filter(({ id }) => id === action.payload)[0]) {
         state.cart.order = [
-          ...state.cart.order.filter((item) => item.id !== action.payload),
+          ...state.cart.order.filter(({ id }) => id !== action.payload),
           {
             id: action.payload,
             quantity:
-              [...state.cart.order].filter(
-                (item) => item.id === action.payload
-              )[0].quantity + 1,
+              [...state.cart.order].filter(({ id }) => id === action.payload)[0]
+                .quantity + 1,
           },
         ];
       } else {
@@ -59,7 +56,7 @@ export const cartSlice = createSlice({
     },
     removeFromCartDispatcher: (state, action) => {
       state.cart.order = [
-        ...state.cart.order.filter((item) => item.id !== action.payload),
+        ...state.cart.order.filter(({ id }) => id !== action.payload),
       ];
     },
     setFirstNameDispatcher: (state, action) => {
