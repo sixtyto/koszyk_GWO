@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -44,55 +43,54 @@ const Order: React.FC = () => {
   };
 
   return (
-    <Container className="my-3">
-      <Row>
-        <Col>
-          {order.order.length > 0 ? (
-            <Form>
-              <Form.Group controlId="first_name">
-                <Form.Label>Imię</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Wpisz imię"
-                  value={first_name}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </Form.Group>
+    <Col>
+      {order.order.length > 0 ? (
+        <Form>
+          <Form.Group controlId="first_name">
+            <Form.Label>Imię</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="Wpisz imię"
+              value={first_name}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </Form.Group>
 
-              <Form.Group controlId="last_name">
-                <Form.Label>Nazwisko</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Wpisz nazwisko"
-                  value={last_name}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </Form.Group>
+          <Form.Group controlId="last_name">
+            <Form.Label>Nazwisko</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="Wpisz nazwisko"
+              value={last_name}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </Form.Group>
 
-              <Form.Group controlId="zip-code">
-                <Form.Label>Kod pocztowy</Form.Label>
-                <Form.Control
-                  pattern="[0-9][0-9]-[0-9][0-9][0-9]"
-                  type="text"
-                  placeholder="Wpisz kod pocztowy"
-                  value={zip_code}
-                  onChange={(e) => setZipCode(e.target.value)}
-                />
-              </Form.Group>
+          <Form.Group controlId="zip-code">
+            <Form.Label>Kod pocztowy</Form.Label>
+            <Form.Control
+              pattern="[0-9][0-9]-[0-9][0-9][0-9]"
+              type="text"
+              placeholder="Wpisz kod pocztowy"
+              value={zip_code}
+              onChange={(e) => setZipCode(e.target.value)}
+            />
+          </Form.Group>
 
-              <Form.Group controlId="city">
-                <Form.Label>Miasto</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Wpisz miasto"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                />
-              </Form.Group>
-
+          <Form.Group controlId="city">
+            <Form.Label>Miasto</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="Wpisz miasto"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </Form.Group>
+          <Row>
+            <Col xs={{ offset: 10 }}>
               <Button
                 variant="primary"
                 type="submit"
@@ -103,13 +101,13 @@ const Order: React.FC = () => {
               >
                 Zamów
               </Button>
-            </Form>
-          ) : (
-            <p>Zamówienie zostało złożone</p>
-          )}
-        </Col>
-      </Row>
-    </Container>
+            </Col>
+          </Row>
+        </Form>
+      ) : (
+        <p>Zamówienie zostało złożone</p>
+      )}
+    </Col>
   );
 };
 

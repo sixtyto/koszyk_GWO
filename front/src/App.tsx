@@ -22,7 +22,7 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Container>
+      <Container className="py-3">
         <Row>
           <Switch>
             <Route exact path="/" component={Home} />
