@@ -7,37 +7,41 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 
+import { getPrice } from "../utils";
+
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const addToCart = (id: number) => {
     dispatch(addToCartDispatcher(id));
   };
-  const getPrice = (price: number) => (price / 100).toFixed(2);
   const { books } = useAppSelector((state: RootState) => state.cartData);
 
   return (
     <>
-      {books &&
-        books.map((book) => (
-          <Col
-            xs={6}
-            sm={4}
-            md={3}
-            key={book.id}
-            className="p-2 d-flex flex-column justify-content-between"
-          >
-            <div className="">
-              <Image fluid src={book.cover_url} alt={book.title} />
-            </div>
-            <p>{book.author}</p>
-            <h3>{book.title}</h3>
-            <p>Stron: {book.pages}</p>
-            <p>
-              Cena: {getPrice(book.price)} {book.currency}
-            </p>
-            <Button onClick={() => addToCart(book.id)}>Dodaj do koszyka</Button>
-          </Col>
-        ))}
+      {books
+        ? books.map(
+            ({ id, cover_url, title, author, pages, price, currency }) => (
+              <Col
+                xs={6}
+                sm={4}
+                md={3}
+                key={id}
+                className="p-2 d-flex flex-column justify-content-between"
+              >
+                <div>
+                  <Image fluid src={cover_url} alt={title} />
+                </div>
+                <p>{author}</p>
+                <h3>{title}</h3>
+                <p>Stron: {pages}</p>
+                <p>
+                  Cena: {getPrice(price)} {currency}
+                </p>
+                <Button onClick={() => addToCart(id)}>Dodaj do koszyka</Button>
+              </Col>
+            )
+          )
+        : null}
     </>
   );
 };
