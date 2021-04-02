@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   return (
     <Navbar bg="light" expand="md">
       <Container fluid>
-        <Navbar.Brand href="#home">Zadanie rekrutacyjne</Navbar.Brand>
+        <Navbar.Brand href="/">Zadanie rekrutacyjne</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

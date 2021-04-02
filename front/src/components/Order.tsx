@@ -35,7 +35,6 @@ const Order: React.FC = () => {
     if (!city) return alert("Podaj poprawne miasto");
     if (!zip_code || !regex.test(zip_code))
       return alert("Podaj prawidłowy kod pocztowy");
-    console.log(JSON.stringify(cart));
     axios
       .post("http://localhost:3001/api/order", JSON.stringify(cart), {
         headers: {
