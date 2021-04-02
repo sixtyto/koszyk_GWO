@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import { useAppDispatch } from "./redux/hooks/reduxHooks";
-import { getData } from "./redux/cart";
+import { getData, setCart } from "./redux/cart";
 
 import Cart from "./components/Cart";
 import Container from "react-bootstrap/Container";
@@ -12,10 +12,12 @@ import Header from "./components/Header";
 import Row from "react-bootstrap/Row";
 
 import { BookResponse } from "./types";
+import { getLocalStorage } from "./utils";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    dispatch(setCart(getLocalStorage()));
     axios
       .get<BookResponse>("http://localhost:3001/api/book")
       .then((data) => dispatch(getData(data.data.data)));

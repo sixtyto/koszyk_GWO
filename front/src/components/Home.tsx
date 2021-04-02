@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      {books
+      {books.length
         ? books.map(
             ({ id, cover_url, title, author, pages, price, currency }) => (
               <Col

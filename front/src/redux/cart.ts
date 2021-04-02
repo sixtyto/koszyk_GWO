@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BooksType, OrderType } from "../types";
+import { setLocalStorage } from "../utils";
 
 export type InitialStateProps = {
   books: BooksType;
@@ -44,9 +45,15 @@ export const cartSlice = createSlice({
           },
         ];
       }
+      setLocalStorage(state.cart.order);
     },
     removeCart: (state) => {
       state.cart.order = [];
+      setLocalStorage(state.cart.order);
+    },
+    setCart: (state, action) => {
+      state.cart.order = action.payload;
+      setLocalStorage(state.cart.order);
     },
     clearForm: (state) => {
       state.cart.first_name = "";
@@ -58,6 +65,7 @@ export const cartSlice = createSlice({
       state.cart.order = [
         ...state.cart.order.filter(({ id }) => id !== action.payload),
       ];
+      setLocalStorage(state.cart.order);
     },
     setFirstNameDispatcher: (state, action) => {
       state.cart.first_name = action.payload;
@@ -78,6 +86,7 @@ export const {
   getData,
   addToCartDispatcher,
   removeCart,
+  setCart,
   clearForm,
   removeFromCartDispatcher,
   setFirstNameDispatcher,
