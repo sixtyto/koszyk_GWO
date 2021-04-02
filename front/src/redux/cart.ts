@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { components } from "../types/schema";
+import { BooksType, OrderType } from "../types";
 
 export type InitialStateProps = {
-  books: components["schemas"]["Book"][];
-  order: components["schemas"]["Order"];
+  books: BooksType;
+  cart: OrderType;
 };
 
 const initialState: InitialStateProps = {
-  order: {
+  cart: {
     order: [],
     first_name: "",
     last_name: "",
@@ -26,21 +26,21 @@ export const cartSlice = createSlice({
     },
     addToCartDispatcher: (state, action) => {
       if (
-        [...state.order.order].filter((item) => item.id === action.payload)[0]
+        [...state.cart.order].filter((item) => item.id === action.payload)[0]
       ) {
-        state.order.order = [
-          ...state.order.order.filter((item) => item.id !== action.payload),
+        state.cart.order = [
+          ...state.cart.order.filter((item) => item.id !== action.payload),
           {
             id: action.payload,
             quantity:
-              [...state.order.order].filter(
+              [...state.cart.order].filter(
                 (item) => item.id === action.payload
               )[0].quantity + 1,
           },
         ];
       } else {
-        state.order.order = [
-          ...state.order.order,
+        state.cart.order = [
+          ...state.cart.order,
           {
             id: action.payload,
             quantity: 1,
@@ -49,30 +49,30 @@ export const cartSlice = createSlice({
       }
     },
     removeCart: (state) => {
-      state.order.order = [];
+      state.cart.order = [];
     },
     clearForm: (state) => {
-      state.order.first_name = "";
-      state.order.last_name = "";
-      state.order.zip_code = "";
-      state.order.city = "";
+      state.cart.first_name = "";
+      state.cart.last_name = "";
+      state.cart.zip_code = "";
+      state.cart.city = "";
     },
     removeFromCartDispatcher: (state, action) => {
-      state.order.order = [
-        ...state.order.order.filter((item) => item.id !== action.payload),
+      state.cart.order = [
+        ...state.cart.order.filter((item) => item.id !== action.payload),
       ];
     },
     setFirstNameDispatcher: (state, action) => {
-      state.order.first_name = action.payload;
+      state.cart.first_name = action.payload;
     },
     setLastNameDispatcher: (state, action) => {
-      state.order.last_name = action.payload;
+      state.cart.last_name = action.payload;
     },
     setZipCodeDispatcher: (state, action) => {
-      state.order.zip_code = action.payload;
+      state.cart.zip_code = action.payload;
     },
     setCityDispatcher: (state, action) => {
-      state.order.city = action.payload;
+      state.cart.city = action.payload;
     },
   },
 });

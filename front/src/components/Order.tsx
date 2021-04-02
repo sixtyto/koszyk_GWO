@@ -18,8 +18,8 @@ import {
 
 const Order: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { order } = useAppSelector((state: RootState) => state.cartData);
-  const { first_name, last_name, city, zip_code } = order;
+  const { cart } = useAppSelector((state: RootState) => state.cartData);
+  const { first_name, last_name, city, zip_code } = cart;
   const setFirstName = (value: string) =>
     dispatch(setFirstNameDispatcher(value));
   const setLastName = (value: string) => dispatch(setLastNameDispatcher(value));
@@ -27,7 +27,7 @@ const Order: React.FC = () => {
   const setCity = (value: string) => dispatch(setCityDispatcher(value));
 
   const finishOrder = () => {
-    console.log(JSON.stringify(order));
+    console.log(JSON.stringify(cart));
     const regex = /\d{2}-\d{3}/;
     if (first_name.length < 4 || first_name.length > 50)
       return alert("Podaj poprawne imię");
@@ -41,7 +41,7 @@ const Order: React.FC = () => {
       method: "post",
       url: "http://localhost:3001/api/order",
       headers: { "Content-Type": "application/json" },
-      data: JSON.stringify(order),
+      data: JSON.stringify(cart),
     }).then(console.log);
     dispatch(removeCart());
     dispatch(clearForm());
@@ -49,7 +49,7 @@ const Order: React.FC = () => {
 
   return (
     <Col>
-      {order.order.length > 0 ? (
+      {cart.order.length > 0 ? (
         <Form>
           <Form.Group controlId="first_name">
             <Form.Label>Imię</Form.Label>

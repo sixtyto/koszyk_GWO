@@ -17,7 +17,7 @@ const Cart: React.FC = () => {
   const getPrice = (price: number) => (price / 100).toFixed(2);
   const {
     books,
-    order: { order },
+    cart: { order },
   } = useAppSelector((state: RootState) => state.cartData);
 
   const cartSummary = getPrice(

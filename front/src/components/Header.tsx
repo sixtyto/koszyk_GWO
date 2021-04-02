@@ -9,7 +9,7 @@ import Nav from "react-bootstrap/Nav";
 
 const Header: React.FC = () => {
   const {
-    order: { order },
+    cart: { order },
   } = useAppSelector((state: RootState) => state.cartData);
   return (
     <Navbar bg="light" expand="md">
