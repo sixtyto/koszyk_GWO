@@ -35,11 +35,12 @@ const Order: React.FC = () => {
     if (!city) return alert("Podaj poprawne miasto");
     if (!zip_code || !regex.test(zip_code))
       return alert("Podaj prawidłowy kod pocztowy");
-
+    console.log(JSON.stringify(cart));
     axios
-      .post("http://localhost:3001/api/order", {
-        headers: { "Content-Type": "application/json" },
-        data: JSON.stringify(cart),
+      .post("http://localhost:3001/api/order", JSON.stringify(cart), {
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then(console.log);
     dispatch(removeCart());
