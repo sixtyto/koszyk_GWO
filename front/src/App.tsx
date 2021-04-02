@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import { useAppDispatch } from "./redux/hooks/reduxHooks";
 import { getData } from "./redux/cart";
 
-import Home from "./components/Home";
 import Cart from "./components/Cart";
+import Container from "react-bootstrap/Container";
+import Home from "./components/Home";
 import Order from "./components/Order";
 import Header from "./components/Header";
-
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
 import { BookResponse } from "./types";
@@ -17,9 +16,10 @@ import { BookResponse } from "./types";
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    axios.get<BookResponse>("http://localhost:3001/api/book").then(
-      (data) => dispatch(getData(data.data.data)) // xD
-    );
+    axios
+      .get<BookResponse>("http://localhost:3001/api/book")
+      .then((data) => dispatch(getData(data.data.data)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <BrowserRouter>
@@ -30,6 +30,9 @@ const App: React.FC = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/order" component={Order} />
+            <Route>
+              <Redirect to="/" />
+            </Route>
           </Switch>
         </Row>
       </Container>
