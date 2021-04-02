@@ -26,10 +26,13 @@ const Order: React.FC = () => {
   const setCity = (value: string) => dispatch(setCityDispatcher(value));
 
   const finishOrder = () => {
-    const regex = new RegExp("^[0-9]{2}-[0-9]{3}$");
-    if (!first_name) return alert("Podaj imię");
-    if (!last_name) return alert("Podaj nazwisko");
-    if (!city) return alert("Podaj miasto");
+    console.log(JSON.stringify(order));
+    const regex = /\d{2}-\d{3}/;
+    if (first_name.length < 4 || first_name.length > 50)
+      return alert("Podaj poprawne imię");
+    if (last_name.length < 5 || last_name.length > 50)
+      return alert("Podaj poprawne nazwisko");
+    if (!city) return alert("Podaj poprawne miasto");
     if (!zip_code || !regex.test(zip_code))
       return alert("Podaj prawidłowy kod pocztowy");
 
