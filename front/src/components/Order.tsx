@@ -27,7 +27,6 @@ const Order: React.FC = () => {
   const setCity = (value: string) => dispatch(setCityDispatcher(value));
 
   const finishOrder = () => {
-    console.log(JSON.stringify(cart));
     const regex = /\d{2}-\d{3}/;
     if (first_name.length < 4 || first_name.length > 50)
       return alert("Podaj poprawne imię");
@@ -37,24 +36,32 @@ const Order: React.FC = () => {
     if (!zip_code || !regex.test(zip_code))
       return alert("Podaj prawidłowy kod pocztowy");
 
-    axios({
-      method: "post",
-      url: "http://localhost:3001/api/order",
-      headers: { "Content-Type": "application/json" },
-      data: JSON.stringify(cart),
-    }).then(console.log);
+    axios
+      .post("http://localhost:3001/api/order", {
+        headers: { "Content-Type": "application/json" },
+        data: JSON.stringify(cart),
+      })
+      .then(console.log);
     dispatch(removeCart());
     dispatch(clearForm());
   };
 
   return (
     <Col>
-      {cart.order.length > 0 ? (
-        <Form>
+      {cart.order.length ? (
+        <Form
+          className="was-validated"
+          onSubmit={(e) => {
+            e.preventDefault();
+            finishOrder();
+          }}
+        >
           <Form.Group controlId="first_name">
             <Form.Label>Imię</Form.Label>
             <Form.Control
               required
+              maxLength={50}
+              minLength={4}
               type="text"
               placeholder="Wpisz imię"
               value={first_name}
@@ -66,6 +73,8 @@ const Order: React.FC = () => {
             <Form.Label>Nazwisko</Form.Label>
             <Form.Control
               required
+              maxLength={50}
+              minLength={5}
               type="text"
               placeholder="Wpisz nazwisko"
               value={last_name}
@@ -77,6 +86,7 @@ const Order: React.FC = () => {
             <Form.Label>Kod pocztowy</Form.Label>
             <Form.Control
               pattern="[0-9][0-9]-[0-9][0-9][0-9]"
+              required
               type="text"
               placeholder="Wpisz kod pocztowy"
               value={zip_code}
@@ -96,15 +106,7 @@ const Order: React.FC = () => {
           </Form.Group>
           <Row>
             <Col xs={{ offset: 10 }}>
-              <Button
-                className="my-2"
-                variant="primary"
-                type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  finishOrder();
-                }}
-              >
+              <Button className="my-2" variant="primary" type="submit">
                 Zamów
               </Button>
             </Col>
