@@ -13,6 +13,7 @@ import {
   setCityDispatcher,
   setZipCodeDispatcher,
   removeCart,
+  clearForm,
 } from "../redux/cart";
 
 const Order: React.FC = () => {
@@ -42,7 +43,8 @@ const Order: React.FC = () => {
       headers: { "Content-Type": "application/json" },
       data: JSON.stringify(order),
     }).then(console.log);
-    return dispatch(removeCart());
+    dispatch(removeCart());
+    dispatch(clearForm());
   };
 
   return (

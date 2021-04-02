@@ -51,6 +51,12 @@ export const cartSlice = createSlice({
     removeCart: (state) => {
       state.order.order = [];
     },
+    clearForm: (state) => {
+      state.order.first_name = "";
+      state.order.last_name = "";
+      state.order.zip_code = "";
+      state.order.city = "";
+    },
     removeFromCartDispatcher: (state, action) => {
       state.order.order = [
         ...state.order.order.filter((item) => item.id !== action.payload),
@@ -75,6 +81,7 @@ export const {
   getData,
   addToCartDispatcher,
   removeCart,
+  clearForm,
   removeFromCartDispatcher,
   setFirstNameDispatcher,
   setLastNameDispatcher,

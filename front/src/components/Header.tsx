@@ -29,7 +29,7 @@ const Header: React.FC = () => {
                     .reduce((a, b) => a + b)})`
                 : null}
             </Link>
-            {order ? (
+            {order.length > 0 ? (
               <Link to="/order" className="nav-link">
                 Zamów
               </Link>

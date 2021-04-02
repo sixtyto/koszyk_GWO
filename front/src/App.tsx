@@ -12,10 +12,12 @@ import Header from "./components/Header";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
+import { BookResponse } from "./types";
+
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    axios("http://localhost:3001/api/book").then(
+    axios.get<BookResponse>("http://localhost:3001/api/book").then(
       (data) => dispatch(getData(data.data.data)) // xD
     );
   }, []);
