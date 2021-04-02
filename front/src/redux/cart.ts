@@ -17,7 +17,7 @@ const initialState: InitialStateProps = {
   books: [],
 };
 
-export const counterSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart data",
   initialState,
   reducers: {
@@ -80,5 +80,5 @@ export const {
   setLastNameDispatcher,
   setZipCodeDispatcher,
   setCityDispatcher,
-} = counterSlice.actions;
-export default counterSlice.reducer;
+} = cartSlice.actions;
+export default cartSlice.reducer;
