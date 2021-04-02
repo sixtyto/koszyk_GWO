@@ -23,13 +23,13 @@ const Header: React.FC = () => {
             </Link>
             <Link to="/cart" className="nav-link">
               Koszyk
-              {order.length > 0
+              {order.length
                 ? ` (${order
-                    .map((item) => item.quantity)
+                    .map(({ quantity }) => quantity)
                     .reduce((a, b) => a + b)})`
                 : null}
             </Link>
-            {order.length > 0 ? (
+            {order.length ? (
               <Link to="/order" className="nav-link">
                 Zamów
               </Link>
